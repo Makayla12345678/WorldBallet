@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Ballets - Discover Ballet Performances Around the World</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <h1>WORLD BALLETS</h1>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="companies/abt.html" class="company-logo">ABT</a></li>
+                <li><a href="companies/pob.html" class="company-logo">POB</a></li>
+                <li><a href="companies/bolshoi.html" class="company-logo">BOLSHOI</a></li>
+                <li><a href="companies/royal.html" class="company-logo">ROYAL</a></li>
+                <li><a href="companies/stuttgart.html" class="company-logo">STUTTGART</a></li>
+                <li><a href="companies/boston.html" class="company-logo">BOSTON</a></li>
+                <li><a href="companies/nbc.html" class="company-logo">NBC</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-banner">
+        <div class="banner-container">
+            <div class="banner-slider" id="bannerSlider">
+                <!-- Banner images will be populated by JavaScript -->
+            </div>
+            <div class="banner-controls">
+                <button class="prev-btn" aria-label="Previous slide">&lt;</button>
+                <button class="next-btn" aria-label="Next slide">&gt;</button>
+            </div>
+        </div>
+        <div class="banner-tagline">
+            <h2>DISCOVER THE WORLD'S FINEST BALLET PERFORMANCES</h2>
+        </div>
+    </section>
+
+    <section class="featured-performances">
+        <h2>FEATURED PERFORMANCES</h2>
+        <div class="performance-cards" id="featuredPerformances">
+            <!-- Featured performances will be populated by JavaScript -->
+        </div>
+    </section>
+
+    <section class="upcoming-performances">
+        <h2>UPCOMING PERFORMANCES</h2>
+        <div class="timeline" id="performanceTimeline">
+            <!-- Timeline will be populated by JavaScript -->
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 World Ballets. All rights reserved.</p>
+            <p>Data sourced from official ballet company websites.</p>
+        </div>
+    </footer>
+
+    <script src="js/scraper.js"></script>
+    <script src="js/data-service.js"></script>
+    <script src="js/ui-controller.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
