@@ -31,7 +31,7 @@ This guide will walk you through setting up a MongoDB Atlas account, creating a 
 2. Choose a cloud provider (AWS, Google Cloud, or Azure) - any will work for our purposes
 3. Select a region closest to you for better performance
 4. Leave the default cluster tier (M0 Sandbox)
-5. Name your cluster "WorldBalletsCluster"
+5. Name your cluster "WorldBallet"
 6. Click "Create Cluster"
 
 ## Step 4: Create a Database User
@@ -66,7 +66,7 @@ This guide will walk you through setting up a MongoDB Atlas account, creating a 
 
 Your connection string should look something like:
 ```
-mongodb+srv://world-ballets-admin:yourpassword@worldballetscluster.mongodb.net/world-ballets?retryWrites=true&w=majority
+mongodb+srv://Makayla12345678:yourpassword@worldballet.momckzt.mongodb.net/world-ballets?retryWrites=true&w=majority
 ```
 
 ## Step 7: Update Your .env File
@@ -75,7 +75,7 @@ mongodb+srv://world-ballets-admin:yourpassword@worldballetscluster.mongodb.net/w
 2. Replace the placeholder MongoDB URI with your actual connection string:
 
 ```
-MONGODB_URI=mongodb+srv://world-ballets-admin:yourpassword@worldballetscluster.mongodb.net/world-ballets?retryWrites=true&w=majority
+MONGODB_URI=mongodb+srv://Makayla12345678:yourpassword@worldballet.momckzt.mongodb.net/world-ballets?retryWrites=true&w=majority
 ```
 
 3. Save the file
