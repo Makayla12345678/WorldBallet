@@ -10,7 +10,7 @@ const scrapeCompanyInfo = async () => {
     console.log('Scraping National Ballet of Canada company info...');
     
     // Fetch the about page
-    const response = await axios.get('https://national.ballet.ca/About', {
+    const response = await axios.get('https://national.ballet.ca/our-history/about-the-national-ballet-of-canada', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
       }
@@ -20,14 +20,14 @@ const scrapeCompanyInfo = async () => {
     
     // Extract company information
     let description = '';
-    $('.about-content p').each((i, el) => {
+    $('.entry-content p').each((i, el) => {
       description += $(el).text().trim() + ' ';
     });
     
     description = description.trim() || 'Founded in 1951, the National Ballet of Canada is one of the premier dance companies in North America. Based in Toronto, the company performs a traditional and contemporary repertoire of the highest caliber.';
     
     // Get logo URL
-    let logoUrl = $('.logo img').attr('src') || 'https://via.placeholder.com/150x150.png?text=NBC+Logo';
+    let logoUrl = $('.site-logo img').attr('src') || 'https://via.placeholder.com/150x150.png?text=NBC+Logo';
     
     // Ensure logo URL is absolute
     if (logoUrl && !logoUrl.startsWith('http')) {
@@ -68,7 +68,7 @@ const scrapePerformances = async () => {
     console.log('Scraping National Ballet of Canada performances...');
     
     // Fetch the performances page
-    const response = await axios.get('https://national.ballet.ca/Tickets/Season-Performances', {
+    const response = await axios.get('https://national.ballet.ca/performances', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
       }
@@ -79,11 +79,11 @@ const scrapePerformances = async () => {
     const performances = [];
     
     // Select performance containers
-    $('.performance-item').each((i, el) => {
+    $('.performance-card, .performance-item').each((i, el) => {
       try {
         // Extract performance details
-        const title = $(el).find('h2').text().trim() || 'Unknown Title';
-        const dateText = $(el).find('.dates').text().trim() || '';
+        const title = $(el).find('h2, h3').text().trim() || 'Unknown Title';
+        const dateText = $(el).find('.dates, .date-range').text().trim() || '';
         
         // Parse date range
         let startDate = null;

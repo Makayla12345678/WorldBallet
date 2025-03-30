@@ -10,7 +10,7 @@ const scrapeCompanyInfo = async () => {
     console.log('Scraping American Ballet Theatre company info...');
     
     // Fetch the about page
-    const response = await axios.get('https://www.abt.org/about/', {
+    const response = await axios.get('https://www.abt.org/about-abt/', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
       }
@@ -68,7 +68,7 @@ const scrapePerformances = async () => {
     console.log('Scraping American Ballet Theatre performances...');
     
     // Fetch the performances page
-    const response = await axios.get('https://www.abt.org/performances/', {
+    const response = await axios.get('https://www.abt.org/performances/summer-season/', {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
       }
