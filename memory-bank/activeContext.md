@@ -32,15 +32,15 @@ The current focus of the World Ballets project is **server integration and deplo
    - ✅ Configure connection string in `.env` file
    - ✅ Test database connection
 
-2. **Server Deployment**
-   - Install server dependencies
-   - Start server in development mode
-   - Test API endpoints
+2. **Server Deployment** ✅
+   - ✅ Install server dependencies
+   - ✅ Start server in development mode
+   - ✅ Test API endpoints
 
-3. **Frontend-Backend Integration**
-   - Update `data-service.js` to use the API instead of mock data
-   - Test data flow from server to frontend
-   - Ensure graceful fallback to mock data when needed
+3. **Frontend-Backend Integration** ✅
+   - ✅ Update `data-service.js` to use the API instead of mock data
+   - ✅ Test data flow from server to frontend
+   - ✅ Ensure graceful fallback to mock data when needed
 
 ### Short-term Goals
 1. Add support for more ballet companies:
@@ -101,16 +101,18 @@ The current focus of the World Ballets project is **server integration and deplo
 
 ## Current Challenges
 
-1. **Scraper Reliability**: Current scrapers need testing with live websites to ensure they correctly extract performance data.
+1. **Scraper Reliability**: ✅ Scrapers have been updated to work with the current website structures of NBC and ABT.
 
-2. **Frontend-Backend Integration**: Need to update the frontend to use the API instead of mock data, with appropriate error handling.
+2. **Frontend-Backend Integration**: ✅ Frontend has been updated to use the API with fallback to mock data when needed.
 
 3. **Additional Ballet Companies**: Need to develop scrapers for the remaining ballet companies listed in the navigation.
 
 ## Recent Discoveries
 
-- The National Ballet of Canada website has a structured performance listing that is relatively easy to scrape.
+- The National Ballet of Canada website has changed its structure. The about page is now at `/our-history/about-the-national-ballet-of-canada` (was `/About`) and the performances page is at `/performances` (was `/Tickets/Season-Performances`). The scrapers have been updated accordingly.
 
-- American Ballet Theatre's website uses a more complex structure with dynamic content loading, requiring a more sophisticated scraping approach.
+- American Ballet Theatre's website has also changed. The about page is now at `/about-abt/` (was `/about/`) and the performances page is at `/performances/summer-season/` (was `/performances/`). The scrapers have been updated to match.
 
 - MongoDB Atlas has been successfully set up and connected to the project with a cluster named "WorldBallet", providing a reliable database backend for storing scraped performance data.
+
+- The frontend now uses the backend API with a fallback to mock data when the API is unavailable, ensuring a smooth user experience even during development or if there are temporary API issues.
