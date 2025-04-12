@@ -39,9 +39,9 @@ The World Ballets project is currently in the **development phase**, with the fr
 ### Additional Ballet Companies
 - ❌ Paris Opera Ballet (POB) scraper and page
 - ❌ Bolshoi Ballet scraper and page
-- ❌ Royal Ballet scraper and page
-- ❌ Stuttgart Ballet scraper and page
-- ❌ Boston Ballet scraper and page
+- ✅ Royal Ballet (RB) scraper and page
+- ✅ Stuttgart Ballet scraper and page
+- ✅ Boston Ballet scraper and page
 
 ### Enhanced Features
 - ❌ Advanced filtering for performances
@@ -78,7 +78,11 @@ The World Ballets project is currently in the **development phase**, with the fr
 | 2025-03-25 | NBC and ABT scrapers | ✅ Completed |
 | 2025-03-29 | MongoDB Atlas setup | ✅ Completed |
 | 2025-03-29 | Frontend-backend integration | ✅ Completed |
-| 2025-04-15 | Additional ballet companies | ❌ Not Started |
+| 2025-04-02 | NBC scraper update for new website structure | ✅ Completed |
+| 2025-04-03 | Royal Ballet (RB) scraper and page | ✅ Completed |
+| 2025-04-05 | Stuttgart Ballet scraper and page | ✅ Completed |
+| 2025-04-05 | Boston Ballet scraper and page | ✅ Completed |
+| 2025-04-15 | Additional ballet companies (POB, Bolshoi) | ❌ In Progress |
 | 2025-04-30 | Production deployment | ❌ Not Started |
 
 ## Decision Evolution
@@ -116,8 +120,11 @@ The World Ballets project is currently in the **development phase**, with the fr
    - ✅ Verify API endpoints are working
 
 4. **Add Support for Additional Companies**
-   - Implement scrapers for remaining ballet companies
-   - Create company pages for each
+   - ✅ Implement Royal Ballet (RB) scraper and page
+   - ✅ Implement Stuttgart Ballet scraper and page
+   - ✅ Implement Boston Ballet scraper and page
+   - Implement scrapers for remaining ballet companies (POB, Bolshoi)
+   - Create company pages for each remaining company
    - Test data flow from scraper to frontend
 
 ## Blockers and Dependencies

@@ -1,0 +1,65 @@
+Running Stuttgart Ballet scraper...
+Connecting to MongoDB...
+MongoDB Connected: ac-4umfhyo-shard-00-02.momckzt.mongodb.net
+Scraping company info...
+Scraping Stuttgart Ballet company info...
+Stuttgart Ballet company info scraped successfully
+Company info scraped successfully
+Saving company info to database...
+Updated company: stuttgart
+Company info saved successfully
+Scraping performances...
+Scraping Stuttgart Ballet performances...
+Found 19 potential performance elements
+Found performance: Anna Karenina, Date: As of March 14, 2025 in the Opera House
+Skipping past performance: Anna Karenina (ended 2025-03-28)
+Found performance: NIGHT/DREAMS, Date: As of April 17, 2025 in the Schauspielhaus
+Found performance: Five for Hans, Date: As of May 24, 2025 in the Opera House
+Found performance: Don Quixote, Date: As of July 4, 2025 in the Opera House
+Found performance: Ballett & Brezeln, Date: As of September 28, 2024
+Skipping past performance: Ballett & Brezeln (ended 2024-10-12)
+Found performance: Ballet Matinee of the John Cranko School, Date: July 20 / 27 in the Opera House
+Could not parse date: "July 20 / 27 in the Opera House"
+Fetching detail page: https://www.stuttgart-ballet.de/schedule/season-2024-25/ballet-matinee-john-cranko-school/
+Found performance: Ballet in the Park 2025, Date: As of July 26, 2025 at Oberer Schlossgarten
+Fetching detail page: https://www.stuttgart-ballet.de/schedule/season-2024-25/ballet-in-the-park-2025/
+Found performance: Romeo and Juliet, Date: As of December 21, 2024 in the Opera House
+Skipping past performance: Romeo and Juliet (ended 2025-01-04)
+Found performance: CRANKO, Date: On September 20, 2024 in the Opera House
+Skipping past performance: CRANKO (ended 2024-09-20)
+Found performance: Novitzky / Dawson, Date: As of September 29, 2024 in the Opera House
+Skipping past performance: Novitzky / Dawson (ended 2024-10-13)
+Found performance: Swan Lake, Date: As of October 16, 2024 in the Opera Hous
+Skipping past performance: Swan Lake (ended 2024-10-30)
+Found performance: Stuttgart Ballet On Tour, Date: As of November 2, 2024
+Skipping past performance: Stuttgart Ballet On Tour (ended 2024-11-16)
+Found performance: 28. International Solo-Tanz-Theater Festival Stuttgart, Date: On November 15 & 16, 2024 in the Kammertheater
+Could not parse date: "On November 15 & 16, 2024 in the Kammertheater"
+Fetching detail page: https://www.stuttgart-ballet.de/schedule/season-2024-25/28-international-solo-tanz-theater-festival-stuttgart/
+Found performance: Behind the Scenes, Date: November 20 - 24, 2024 in the Kammertheater
+Could not parse date: "November 20 - 24, 2024 in the Kammertheater"
+Fetching detail page: https://www.stuttgart-ballet.de/schedule/season-2024-25/behind-the-scenes-23-24/
+Found performance: The Nutcracker, Date: As of October 30, 2024 in the Opera House
+Skipping past performance: The Nutcracker (ended 2024-11-13)
+Found performance: Aktion Weihnachten, Date: On December 8, 2024 in the Opera House
+Skipping past performance: Aktion Weihnachten (ended 2024-12-08)
+Found performance: Noverre: Young Choreographers, Date: As of January 25, 2025 in the Schauspielhaus
+Skipping past performance: Noverre: Young Choreographers (ended 2025-02-08)
+Found performance: Mahler X Three Masters, Date: As of January 15, 2025 in the Opera House
+Skipping past performance: Mahler X Three Masters (ended 2025-01-29)
+Found performance: Death in Venice, Date: As of February 9, 2025 in the Opera House
+Skipping past performance: Death in Venice (ended 2025-02-23)
+Scraped 7 performances from Stuttgart Ballet
+Found 7 performances
+Saving performances to database...
+Updated performance: NIGHT/DREAMS
+Updated performance: Five for Hans
+Updated performance: Don Quixote
+Updated performance: Ballet Matinee of the John Cranko School
+Updated performance: Ballet in the Park 2025
+Updated performance: 28. International Solo-Tanz-Theater Festival Stuttgart
+Updated performance: Behind the Scenes
+Saved 7 performances for stuttgart
+Performances saved successfully
+Stuttgart Ballet scraper completed successfully
+Database connection closed

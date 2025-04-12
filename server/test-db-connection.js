@@ -1,11 +1,17 @@
 // Simple script to test MongoDB connection
 
 const mongoose = require('mongoose');
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
 async function testConnection() {
   try {
     console.log('Attempting to connect to MongoDB...');
+    
+    if (!process.env.MONGODB_URI) {
+      throw new Error('MONGODB_URI environment variable is not defined. Please check your .env file.');
+    }
+    
     console.log(`Connection string: ${process.env.MONGODB_URI.replace(/:[^:]*@/, ':****@')}`);
     
     await mongoose.connect(process.env.MONGODB_URI);

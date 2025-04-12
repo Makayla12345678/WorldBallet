@@ -1,5 +1,8 @@
 const nbcScraper = require('./nbc');
 const abtScraper = require('./abt');
+const rbScraper = require('./rb');
+const stuttgartScraper = require('./stuttgart');
+const bostonScraper = require('./boston');
 const Company = require('../models/Company');
 const Performance = require('../models/Performance');
 
@@ -16,12 +19,18 @@ const scrapeAll = async () => {
     // Scrape American Ballet Theatre
     await scrapeCompany('abt');
     
+    // Scrape Royal Ballet
+    await scrapeCompany('rb');
+    
+    // Scrape Stuttgart Ballet
+    await scrapeCompany('stuttgart');
+    
+    // Scrape Boston Ballet
+    await scrapeCompany('boston');
+    
     // TODO: Add other companies as they are implemented
     // await scrapeCompany('pob');
     // await scrapeCompany('bolshoi');
-    // await scrapeCompany('royal');
-    // await scrapeCompany('stuttgart');
-    // await scrapeCompany('boston');
     
     console.log('All companies scraped successfully');
     return true;
@@ -51,6 +60,18 @@ const scrapeCompany = async (companyId) => {
       case 'abt':
         companyInfo = await abtScraper.scrapeCompanyInfo();
         performances = await abtScraper.scrapePerformances();
+        break;
+      case 'rb':
+        companyInfo = await rbScraper.scrapeCompanyInfo();
+        performances = await rbScraper.scrapePerformances();
+        break;
+      case 'stuttgart':
+        companyInfo = await stuttgartScraper.scrapeCompanyInfo();
+        performances = await stuttgartScraper.scrapePerformances();
+        break;
+      case 'boston':
+        companyInfo = await bostonScraper.scrapeCompanyInfo();
+        performances = await bostonScraper.scrapePerformances();
         break;
       // TODO: Add other companies as they are implemented
       default:
@@ -128,12 +149,41 @@ const savePerformances = async (companyId, performances) => {
     
     // Process each performance
     for (const performanceData of performances) {
-      // Check if performance exists (by title and date range)
+      // Skip performances with titles that are likely section headers
+      if (performanceData.title === "Upcoming Productions" || 
+          performanceData.title.includes("Season") || 
+          performanceData.title.includes("Productions")) {
+        console.log(`Skipping section header: ${performanceData.title}`);
+        continue;
+      }
+      
+      // Normalize the title to handle slight variations
+      const normalizedTitle = performanceData.title.trim();
+      
+      // Check if performance exists (by title and approximate date range)
+      // This uses a more flexible date matching to catch duplicates with slightly different dates
+      const startDate = new Date(performanceData.startDate);
+      const endDate = new Date(performanceData.endDate);
+      
+      // Create date ranges for searching (±3 days)
+      const startDateMin = new Date(startDate);
+      startDateMin.setDate(startDateMin.getDate() - 3);
+      
+      const startDateMax = new Date(startDate);
+      startDateMax.setDate(startDateMax.getDate() + 3);
+      
+      const endDateMin = new Date(endDate);
+      endDateMin.setDate(endDateMin.getDate() - 3);
+      
+      const endDateMax = new Date(endDate);
+      endDateMax.setDate(endDateMax.getDate() + 3);
+      
+      // Find existing performance with similar title and date range
       const existingPerformance = await Performance.findOne({
         company: companyId,
-        title: performanceData.title,
-        startDate: new Date(performanceData.startDate),
-        endDate: new Date(performanceData.endDate)
+        title: normalizedTitle,
+        startDate: { $gte: startDateMin, $lte: startDateMax },
+        endDate: { $gte: endDateMin, $lte: endDateMax }
       });
       
       if (existingPerformance) {
@@ -149,7 +199,7 @@ const savePerformances = async (companyId, performances) => {
       } else {
         // Create new performance
         const newPerformance = new Performance({
-          title: performanceData.title,
+          title: normalizedTitle,
           company: companyId,
           startDate: new Date(performanceData.startDate),
           endDate: new Date(performanceData.endDate),
@@ -174,5 +224,7 @@ const savePerformances = async (companyId, performances) => {
 
 module.exports = {
   scrapeAll,
-  scrapeCompany
+  scrapeCompany,
+  saveCompanyInfo,
+  savePerformances
 };

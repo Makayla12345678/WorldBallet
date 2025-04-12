@@ -7,7 +7,7 @@
 
 const DataService = (() => {
     // API configuration
-    const API_BASE_URL = 'http://localhost:5001/api'; // Updated to use port 5001
+    const API_BASE_URL = 'http://localhost:5001/api'; // Using absolute URL for the API
     
     /**
      * Fetches company information
@@ -26,6 +26,9 @@ const DataService = (() => {
         } catch (error) {
             console.error(`Error fetching company ${companyId}:`, error);
             console.warn('Falling back to mock data');
+            
+            // We still want to show company info for NBC even if the API fails
+            // so we'll keep the mock data fallback for company info
             return MockData.getCompanyInfo(companyId);
         }
     };
@@ -37,17 +40,42 @@ const DataService = (() => {
      */
     const getCompanyPerformances = async (companyId) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/companies/${companyId}/performances`);
+            console.log(`Fetching performances for company ${companyId}...`);
+            
+            // For Boston Ballet, only fetch current and upcoming performances
+            const queryParams = companyId === 'boston' ? '?past=false' : '';
+            const response = await fetch(`${API_BASE_URL}/companies/${companyId}/performances${queryParams}`);
             
             if (!response.ok) {
                 throw new Error(`Failed to fetch performances: ${response.status} ${response.statusText}`);
             }
             
-            return await response.json();
+            const data = await response.json();
+            console.log(`Successfully fetched ${data.length} performances for company ${companyId}`);
+            
+            // If no performances were found, fall back to mock data
+            if (data.length === 0) {
+                console.warn(`No performances found for ${companyId}, falling back to mock data`);
+                const mockPerformances = MockData.getCompanyPerformances(companyId);
+                console.log(`Found ${mockPerformances.length} mock performances for ${companyId}`);
+                return mockPerformances;
+            }
+            
+            return data;
         } catch (error) {
             console.error(`Error fetching performances for company ${companyId}:`, error);
-            console.warn('Falling back to mock data');
-            return MockData.getCompanyPerformances(companyId);
+            
+            // Special handling for NBC - don't use mock data
+            if (companyId === 'nbc') {
+                console.warn('Not using mock data for NBC - returning empty array');
+                return []; // Return empty array instead of mock data
+            }
+            
+            // For other companies, fall back to mock data as before
+            console.warn(`Falling back to mock data for ${companyId}`);
+            const mockPerformances = MockData.getCompanyPerformances(companyId);
+            console.log(`Found ${mockPerformances.length} mock performances for ${companyId}`);
+            return mockPerformances;
         }
     };
     
@@ -66,8 +94,11 @@ const DataService = (() => {
             return await response.json();
         } catch (error) {
             console.error('Error fetching current performances:', error);
-            console.warn('Falling back to mock data');
-            return MockData.getAllCurrentPerformances();
+            console.warn('Falling back to mock data (excluding NBC)');
+            
+            // Get all mock performances except NBC
+            const allPerformances = MockData.getAllCurrentPerformances();
+            return allPerformances.filter(p => p.company !== 'nbc');
         }
     };
     
@@ -87,8 +118,11 @@ const DataService = (() => {
             return await response.json();
         } catch (error) {
             console.error('Error fetching featured performances:', error);
-            console.warn('Falling back to mock data');
-            return MockData.getFeaturedPerformances(count);
+            console.warn('Falling back to mock data (excluding NBC)');
+            
+            // Get featured performances from mock data, excluding NBC
+            const mockPerformances = MockData.getFeaturedPerformances(count);
+            return mockPerformances.filter(p => p.company !== 'nbc');
         }
     };
     
@@ -142,6 +176,24 @@ const DataService = (() => {
         return false;
     };
     
+    /**
+     * Gets mock company information for a specific company
+     * @param {string} companyId - The ID of the company
+     * @returns {Object} - Company information object
+     */
+    const getMockCompanyInfo = (companyId) => {
+        return MockData.getCompanyInfo(companyId);
+    };
+    
+    /**
+     * Gets mock performances for a specific company
+     * @param {string} companyId - The ID of the company
+     * @returns {Array} - Array of performance objects
+     */
+    const getMockPerformances = (companyId) => {
+        return MockData.getCompanyPerformances(companyId);
+    };
+    
     // Public API
     return {
         getCompanyInfo,
@@ -150,6 +202,8 @@ const DataService = (() => {
         getFeaturedPerformances,
         formatDateRange,
         isCurrentPerformance,
-        isNextPerformance
+        isNextPerformance,
+        getMockCompanyInfo,
+        getMockPerformances
     };
 })();

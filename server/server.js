@@ -2,11 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const cron = require('node-cron');
 const dotenv = require('dotenv');
+const path = require('path');
 const connectDB = require('./config/db');
 const scraper = require('./scrapers/index');
 
 // Load environment variables
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 // Initialize Express app
 const app = express();
@@ -17,13 +18,14 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '..'))); // Serve frontend files
 
 // Routes
 app.use('/api/companies', require('./routes/companies'));
 app.use('/api/performances', require('./routes/performances'));
 
-// Home route
-app.get('/', (req, res) => {
+// API Home route
+app.get('/api', (req, res) => {
   res.json({
     message: 'Welcome to the World Ballets API',
     endpoints: {
@@ -32,6 +34,15 @@ app.get('/', (req, res) => {
       companyPerformances: '/api/companies/:id/performances'
     }
   });
+});
+
+// Frontend routes
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
+
+app.get('/companies/:company', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'companies', `${req.params.company}.html`));
 });
 
 // Schedule scraping job

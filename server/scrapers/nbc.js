@@ -67,101 +67,420 @@ const scrapePerformances = async () => {
   try {
     console.log('Scraping National Ballet of Canada performances...');
     
-    // Fetch the performances page
-    const response = await axios.get('https://national.ballet.ca/performances', {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-      }
-    });
+    // Define season URLs to scrape
+    const seasonUrls = [
+      'https://national.ballet.ca/performances/202425-season',
+      'https://national.ballet.ca/performances/202526-season'
+    ];
     
-    const $ = cheerio.load(response.data);
+    let allPerformances = [];
     
-    const performances = [];
-    
-    // Select performance containers
-    $('.performance-card, .performance-item').each((i, el) => {
+    // Scrape each season URL
+    for (const url of seasonUrls) {
       try {
-        // Extract performance details
-        const title = $(el).find('h2, h3').text().trim() || 'Unknown Title';
-        const dateText = $(el).find('.dates, .date-range').text().trim() || '';
-        
-        // Parse date range
-        let startDate = null;
-        let endDate = null;
-        
-        const dateMatch = dateText.match(/(\w+\s+\d+,\s+\d{4})\s*-\s*(\w+\s+\d+,\s+\d{4})/);
-        if (dateMatch) {
-          startDate = new Date(dateMatch[1]);
-          endDate = new Date(dateMatch[2]);
-        } else {
-          // Default dates if parsing fails
-          startDate = new Date();
-          endDate = new Date();
-          endDate.setDate(endDate.getDate() + 14); // Two weeks from now
-        }
-        
-        // Format dates as YYYY-MM-DD
-        const formatDate = (date) => {
-          return date.toISOString().split('T')[0];
-        };
-        
-        const description = $(el).find('.description').text().trim() || '';
-        
-        // Get image URL
-        let imageUrl = $(el).find('img').attr('src') || '';
-        
-        // Ensure image URL is absolute
-        if (imageUrl && !imageUrl.startsWith('http')) {
-          imageUrl = `https://national.ballet.ca${imageUrl}`;
-        }
-        
-        // Default image if none found
-        if (!imageUrl) {
-          imageUrl = `https://via.placeholder.com/800x400.png?text=${encodeURIComponent(title)}`;
-        }
-        
-        // Check if there's a video
-        let videoUrl = '';
-        $(el).find('a').each((i, link) => {
-          const href = $(link).attr('href') || '';
-          if (href.includes('youtube.com') || href.includes('youtu.be')) {
-            videoUrl = href;
+        console.log(`Scraping performances from ${url}...`);
+        const response = await axios.get(url, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
           }
         });
         
-        // Extract YouTube video ID if present
-        let videoEmbedUrl = '';
-        if (videoUrl) {
-          const videoIdMatch = videoUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-          if (videoIdMatch && videoIdMatch[1]) {
-            videoEmbedUrl = `https://www.youtube.com/embed/${videoIdMatch[1]}`;
+        const $ = cheerio.load(response.data);
+        
+        const seasonPerformances = [];
+        
+        // First try to find performances in the upcoming-list
+        const upcomingPerformances = [];
+        $('.upcoming-list-item').each((i, el) => {
+          try {
+            const $el = $(el);
+            
+            // Extract date text
+            const dateText = $el.find('.upcoming-themed-pretitle p').text().trim();
+            
+            // Extract title
+            const title = $el.find('.accent').text().trim();
+            
+            if (!dateText || !title) {
+              return; // Skip if no date or title found
+            }
+            
+            // Skip section headers like "Upcoming Productions"
+            if (title === "Upcoming Productions" || title.includes("Season") || title.includes("Productions")) {
+              console.log(`Skipping section header: ${title}`);
+              return;
+            }
+            
+            console.log(`Found performance: ${title} (${dateText})`);
+            
+            // Parse date range
+            let startDate = null;
+            let endDate = null;
+            
+            // Try to match different date formats
+            // Format: "November 1 – 8 2025" (same month)
+            let dateMatch = dateText.match(/([A-Za-z]+)\s+(\d+)\s*[–-]\s*(\d+)\s+(\d{4})/);
+            if (dateMatch) {
+              const month = dateMatch[1];
+              const startDay = dateMatch[2];
+              const endDay = dateMatch[3];
+              const year = dateMatch[4];
+              startDate = new Date(`${month} ${startDay}, ${year}`);
+              endDate = new Date(`${month} ${endDay}, ${year}`);
+            } else {
+              // Format: "February 27 – March 6 2026" (different months)
+              dateMatch = dateText.match(/([A-Za-z]+)\s+(\d+)\s*[–-]\s*([A-Za-z]+)\s+(\d+)\s+(\d{4})/);
+              if (dateMatch) {
+                const startMonth = dateMatch[1];
+                const startDay = dateMatch[2];
+                const endMonth = dateMatch[3];
+                const endDay = dateMatch[4];
+                const year = dateMatch[5];
+                startDate = new Date(`${startMonth} ${startDay}, ${year}`);
+                endDate = new Date(`${endMonth} ${endDay}, ${year}`);
+              } else {
+                // Try another format: "May 30 – June 5 2025" (different months, no comma)
+                dateMatch = dateText.match(/([A-Za-z]+)\s+(\d+)\s*[–-]\s*([A-Za-z]+)\s+(\d+)\s+(\d{4})/);
+                if (dateMatch) {
+                  const startMonth = dateMatch[1];
+                  const startDay = dateMatch[2];
+                  const endMonth = dateMatch[3];
+                  const endDay = dateMatch[4];
+                  const year = dateMatch[5];
+                  startDate = new Date(`${startMonth} ${startDay}, ${year}`);
+                  endDate = new Date(`${endMonth} ${endDay}, ${year}`);
+                } else {
+                  // Try yet another format: "December 5 – 31 2025" (same month)
+                  dateMatch = dateText.match(/([A-Za-z]+)\s+(\d+)\s*[–-]\s*(\d+)\s+(\d{4})/);
+                  if (dateMatch) {
+                    const month = dateMatch[1];
+                    const startDay = dateMatch[2];
+                    const endDay = dateMatch[3];
+                    const year = dateMatch[4];
+                    startDate = new Date(`${month} ${startDay}, ${year}`);
+                    endDate = new Date(`${month} ${endDay}, ${year}`);
+                  } else {
+                    console.log(`Could not parse date: "${dateText}"`);
+                    
+                    // Extract year from the date text
+                    const yearMatch = dateText.match(/\b(\d{4})\b/);
+                    if (!yearMatch) {
+                      return; // Skip if no year found
+                    }
+                    
+                    const year = yearMatch[1];
+                    
+                    // Extract month names
+                    const monthMatch = dateText.match(/([A-Za-z]+)/g);
+                    if (!monthMatch || monthMatch.length === 0) {
+                      return; // Skip if no month found
+                    }
+                    
+                    // Extract day numbers
+                    const dayMatch = dateText.match(/\b(\d{1,2})\b/g);
+                    if (!dayMatch || dayMatch.length < 2) {
+                      return; // Skip if not enough days found
+                    }
+                    
+                    // Use the extracted information to create dates
+                    if (monthMatch.length === 1) {
+                      // Same month for start and end
+                      startDate = new Date(`${monthMatch[0]} ${dayMatch[0]}, ${year}`);
+                      endDate = new Date(`${monthMatch[0]} ${dayMatch[1]}, ${year}`);
+                    } else if (monthMatch.length >= 2) {
+                      // Different months for start and end
+                      startDate = new Date(`${monthMatch[0]} ${dayMatch[0]}, ${year}`);
+                      endDate = new Date(`${monthMatch[1]} ${dayMatch[1]}, ${year}`);
+                    } else {
+                      return; // Skip if parsing fails
+                    }
+                  }
+                }
+              }
+            }
+            
+            // Format dates as YYYY-MM-DD
+            const formatDate = (date) => {
+              return date.toISOString().split('T')[0];
+            };
+            
+            // Get description (if available)
+            let description = '';
+            $el.find('p').each((i, p) => {
+              if (i > 0) { // Skip the first paragraph (date)
+                const text = $(p).text().trim();
+                if (text.length > 5) {
+                  description += text + ' ';
+                }
+              }
+            });
+            description = description.trim() || `${title} - National Ballet of Canada performance`;
+            
+            // Get image URL (if available) - try multiple selectors to find the image
+            let imageUrl = '';
+            
+            // First try to find image directly in the element
+            imageUrl = $el.find('img').attr('src') || '';
+            
+            // If no image found, try to find it in parent or sibling elements
+            if (!imageUrl) {
+              // Try parent element
+              imageUrl = $el.parent().find('img').attr('src') || '';
+              
+              // Try sibling elements
+              if (!imageUrl) {
+                imageUrl = $el.siblings().find('img').attr('src') || '';
+              }
+              
+              // Try looking for background image in style attribute
+              if (!imageUrl) {
+                const styleAttr = $el.attr('style') || $el.parent().attr('style') || '';
+                const bgMatch = styleAttr.match(/background-image:\s*url\(['"]?([^'"]+)['"]?\)/i);
+                if (bgMatch && bgMatch[1]) {
+                  imageUrl = bgMatch[1];
+                }
+              }
+            }
+            
+            // Special handling for known performances
+            if (title === 'Anna Karenina') {
+              // Always use a hardcoded image URL for Anna Karenina from the production page
+              imageUrl = 'https://national.ballet.ca/assets/uploads/images/Anna-Karenina-1920x1080.jpg';
+              console.log(`Using hardcoded Anna Karenina image: ${imageUrl}`);
+            }
+            
+            // Ensure image URL is absolute
+            if (imageUrl && !imageUrl.startsWith('http')) {
+              // Handle different relative URL formats
+              if (imageUrl.startsWith('//')) {
+                imageUrl = `https:${imageUrl}`;
+              } else if (imageUrl.startsWith('/')) {
+                imageUrl = `https://national.ballet.ca${imageUrl}`;
+              } else {
+                imageUrl = `https://national.ballet.ca/${imageUrl}`;
+              }
+            }
+            
+            // Default image if none found
+            if (!imageUrl) {
+              imageUrl = `https://via.placeholder.com/800x400.png?text=${encodeURIComponent(title)}`;
+            }
+            
+            console.log(`Image URL for ${title}: ${imageUrl}`);
+            
+            // Create performance object
+            const performance = {
+              title,
+              startDate: formatDate(startDate),
+              endDate: formatDate(endDate),
+              description,
+              image: imageUrl,
+              videoUrl: ''
+            };
+            
+            // Check if this performance is already in the list (avoid duplicates)
+            const isDuplicate = upcomingPerformances.some(p => 
+              p.title === performance.title && 
+              (Math.abs(new Date(p.startDate) - new Date(performance.startDate)) < 1000 * 60 * 60 * 24 * 2) // Within 2 days
+            );
+            
+            if (!isDuplicate) {
+              upcomingPerformances.push(performance);
+            } else {
+              console.log(`Skipping duplicate performance: ${title}`);
+            }
+          } catch (err) {
+            console.error('Error parsing upcoming performance:', err);
           }
+        });
+        
+        if (upcomingPerformances.length > 0) {
+          console.log(`Found ${upcomingPerformances.length} performances in upcoming-list`);
+          seasonPerformances.push(...upcomingPerformances);
+        } else {
+          // Fallback to the original method if no performances found in upcoming-list
+          // Select performance containers - look for sections with dates and titles
+          $('section, article, div').each((i, el) => {
+            try {
+              // Look for date text in format like "May 30 - June 5, 2025"
+              const dateText = $(el).find('time, [class*="date"], [class*="Date"]').text().trim() || 
+                               $(el).children().first().text().match(/[A-Z][a-z]+ \d+\s*[-–]\s*[A-Z][a-z]+ \d+,\s*\d{4}/)?.[0] || '';
+              
+              if (!dateText || !dateText.match(/\d{4}/)) {
+                return; // Skip if no valid date text found
+              }
+              
+              // Extract performance details
+              const title = $(el).find('h1, h2, h3').first().text().trim() || 'Unknown Title';
+              
+              // Skip section headers like "Upcoming Productions"
+              if (title === "Upcoming Productions" || title.includes("Season") || title.includes("Productions")) {
+                console.log(`Skipping section header: ${title}`);
+                return;
+              }
+              
+              // Parse date range
+              let startDate = null;
+              let endDate = null;
+              
+              // Try to match different date formats
+              // Format 1: "May 30 - June 5, 2025"
+              let dateMatch = dateText.match(/([A-Za-z]+\s+\d+)\s*[-–]\s*([A-Za-z]+\s+\d+),\s*(\d{4})/);
+              if (dateMatch) {
+                const startMonthDay = dateMatch[1];
+                const endMonthDay = dateMatch[2];
+                const year = dateMatch[3];
+                startDate = new Date(`${startMonthDay}, ${year}`);
+                endDate = new Date(`${endMonthDay}, ${year}`);
+              } else {
+                // Format 2: "June 13 - 21, 2025" (same month)
+                dateMatch = dateText.match(/([A-Za-z]+\s+\d+)\s*[-–]\s*(\d+),\s*(\d{4})/);
+                if (dateMatch) {
+                  const startMonthDay = dateMatch[1];
+                  const endDay = dateMatch[2];
+                  const year = dateMatch[3];
+                  startDate = new Date(`${startMonthDay}, ${year}`);
+                  
+                  // Extract month from startMonthDay
+                  const month = startMonthDay.split(' ')[0];
+                  endDate = new Date(`${month} ${endDay}, ${year}`);
+                } else {
+                  // Default dates if parsing fails
+                  console.log(`Could not parse date: "${dateText}"`);
+                  startDate = new Date();
+                  endDate = new Date();
+                  endDate.setDate(endDate.getDate() + 14); // Two weeks from now
+                }
+              }
+              
+              // Format dates as YYYY-MM-DD
+              const formatDate = (date) => {
+                return date.toISOString().split('T')[0];
+              };
+              
+              // Get description from paragraphs following the title
+              let description = '';
+              $(el).find('p').each((i, p) => {
+                const text = $(p).text().trim();
+                if (text.length > 30) { // Only include substantial paragraphs
+                  description += text + ' ';
+                }
+              });
+              description = description.trim() || '';
+              
+              // Get image URL - try multiple selectors to find the image
+              let imageUrl = '';
+              
+              // First try to find image directly in the element
+              imageUrl = $(el).find('img').attr('src') || '';
+              
+              // If no image found, try to find it in parent or sibling elements
+              if (!imageUrl) {
+                // Try parent element
+                imageUrl = $(el).parent().find('img').attr('src') || '';
+                
+                // Try sibling elements
+                if (!imageUrl) {
+                  imageUrl = $(el).siblings().find('img').attr('src') || '';
+                }
+                
+                // Try looking for background image in style attribute
+                if (!imageUrl) {
+                  const styleAttr = $(el).attr('style') || $(el).parent().attr('style') || '';
+                  const bgMatch = styleAttr.match(/background-image:\s*url\(['"]?([^'"]+)['"]?\)/i);
+                  if (bgMatch && bgMatch[1]) {
+                    imageUrl = bgMatch[1];
+                  }
+                }
+              }
+              
+              // Special handling for known performances
+              if (title === 'Anna Karenina') {
+                // Always use a hardcoded image URL for Anna Karenina from the production page
+                imageUrl = 'https://national.ballet.ca/assets/uploads/images/Anna-Karenina-1920x1080.jpg';
+                console.log(`Using hardcoded Anna Karenina image: ${imageUrl}`);
+              }
+              
+              // Ensure image URL is absolute
+              if (imageUrl && !imageUrl.startsWith('http')) {
+                // Handle different relative URL formats
+                if (imageUrl.startsWith('//')) {
+                  imageUrl = `https:${imageUrl}`;
+                } else if (imageUrl.startsWith('/')) {
+                  imageUrl = `https://national.ballet.ca${imageUrl}`;
+                } else {
+                  imageUrl = `https://national.ballet.ca/${imageUrl}`;
+                }
+              }
+              
+              // Default image if none found
+              if (!imageUrl) {
+                imageUrl = `https://via.placeholder.com/800x400.png?text=${encodeURIComponent(title)}`;
+              }
+              
+              console.log(`Image URL for ${title}: ${imageUrl}`);
+              
+              // Check if there's a video
+              let videoUrl = '';
+              $(el).find('a').each((i, link) => {
+                const href = $(link).attr('href') || '';
+                if (href.includes('youtube.com') || href.includes('youtu.be')) {
+                  videoUrl = href;
+                }
+              });
+              
+              // Extract YouTube video ID if present
+              let videoEmbedUrl = '';
+              if (videoUrl) {
+                const videoIdMatch = videoUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+                if (videoIdMatch && videoIdMatch[1]) {
+                  videoEmbedUrl = `https://www.youtube.com/embed/${videoIdMatch[1]}`;
+                }
+              }
+              
+              // Create performance object
+              const performance = {
+                title,
+                startDate: formatDate(startDate),
+                endDate: formatDate(endDate),
+                description,
+                image: imageUrl,
+                videoUrl: videoEmbedUrl
+              };
+              
+              // Check if this performance is already in the list (avoid duplicates)
+              const isDuplicate = seasonPerformances.some(p => 
+                p.title === performance.title && 
+                (Math.abs(new Date(p.startDate) - new Date(performance.startDate)) < 1000 * 60 * 60 * 24 * 2) // Within 2 days
+              );
+              
+              if (!isDuplicate) {
+                seasonPerformances.push(performance);
+              } else {
+                console.log(`Skipping duplicate performance: ${title}`);
+              }
+            } catch (err) {
+              console.error('Error parsing performance:', err);
+            }
+          });
         }
         
-        // Create performance object
-        const performance = {
-          title,
-          startDate: formatDate(startDate),
-          endDate: formatDate(endDate),
-          description,
-          image: imageUrl,
-          videoUrl: videoEmbedUrl
-        };
-        
-        performances.push(performance);
-      } catch (err) {
-        console.error('Error parsing performance:', err);
+        console.log(`Scraped ${seasonPerformances.length} performances from ${url}`);
+        allPerformances = [...allPerformances, ...seasonPerformances];
+      } catch (error) {
+        console.error(`Error scraping ${url}:`, error);
       }
-    });
+    }
     
-    console.log(`Scraped ${performances.length} performances from National Ballet of Canada`);
+    console.log(`Scraped ${allPerformances.length} total performances from National Ballet of Canada`);
     
-    // If no performances were found, return mock data
-    if (performances.length === 0) {
+    // Only use mock data if absolutely no performances were found
+    if (allPerformances.length === 0) {
+      console.warn('No performances found, falling back to mock data');
       return getMockPerformances();
     }
     
-    return performances;
+    return allPerformances;
   } catch (error) {
     console.error('Error scraping National Ballet of Canada performances:', error);
     

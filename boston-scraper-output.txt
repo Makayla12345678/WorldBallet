@@ -1,0 +1,62 @@
+Starting test script...
+Testing Boston Ballet scraper...
+Scraping company info...
+Scraping Boston Ballet company info...
+Boston Ballet company info scraped successfully
+Company info: {
+  name: 'Boston Ballet',
+  shortName: 'BOSTON',
+  description: 'Boston Ballet is an internationally recognized professional classical ballet company based in Boston, Massachusetts. Founded in 1963, the company is one of the major ballet companies in North America and is known for its classical, neo-classical, and contemporary repertoire. Under the artistic direction of Mikko Nissinen, Boston Ballet has established itself as a leader in the world of dance.',
+  logo: 'https://via.placeholder.com/150x150.png?text=Boston+Ballet+Logo',
+  website: 'https://www.bostonballet.org'
+}
+Scraping performances...
+Scraping Boston Ballet performances...
+Found 4 potential performance elements
+Found 11 performance links
+Fetching performance page: https://www.bostonballet.org/performances/spring-experience/
+No title found for https://www.bostonballet.org/performances/spring-experience/
+Fetching performance page: https://www.bostonballet.org/performances/next-generation/
+No title found for https://www.bostonballet.org/performances/next-generation/
+Fetching performance page: https://www.bostonballet.org/performances/romeo-et-juliette/
+No title found for https://www.bostonballet.org/performances/romeo-et-juliette/
+Fetching performance page: https://www.bostonballet.org/performances/jewels/
+No title found for https://www.bostonballet.org/performances/jewels/
+Fetching performance page: https://www.bostonballet.org/performances/the-nutcracker/
+No title found for https://www.bostonballet.org/performances/the-nutcracker/
+Fetching performance page: https://www.bostonballet.org/performances/winter-experience/
+No title found for https://www.bostonballet.org/performances/winter-experience/
+Fetching performance page: https://www.bostonballet.org/performances/the-dream/
+No title found for https://www.bostonballet.org/performances/the-dream/
+Fetching performance page: https://www.bostonballet.org/performances/spring-experience-2026/
+No title found for https://www.bostonballet.org/performances/spring-experience-2026/
+Fetching performance page: https://www.bostonballet.org/performances/the-sleeping-beauty/
+No title found for https://www.bostonballet.org/performances/the-sleeping-beauty/
+Fetching performance page: https://www.bostonballet.org/performances/boston-ballet-on-tour/
+No title found for https://www.bostonballet.org/performances/boston-ballet-on-tour/
+Fetching performance page: https://www.bostonballet.org/performances/sensory-friendly-nutcracker/
+No title found for https://www.bostonballet.org/performances/sensory-friendly-nutcracker/
+Scraped 0 performances from Boston Ballet
+No performances found, using mock data
+Found 5 performances
+- The Nutcracker (2025-11-27 to 2025-12-31)
+  Description: Experience the magic of the holidays with Boston Ballet's production of Mikko Nissinen's The Nutcrac...
+  Image: https://via.placeholder.com/800x400.png?text=The+Nutcracker
+
+- Swan Lake (2025-02-20 to 2025-03-07)
+  Description: Boston Ballet presents Mikko Nissinen's Swan Lake, the timeless classical ballet of all time. With i...
+  Image: https://via.placeholder.com/800x400.png?text=Swan+Lake
+
+- ChoreograpHER (2025-03-19 to 2025-03-29)
+  Description: Boston Ballet's ChoreograpHER initiative highlights the work of innovative female choreographers fro...
+  Image: https://via.placeholder.com/800x400.png?text=ChoreograpHER
+
+- Don Quixote (2025-05-08 to 2025-05-18)
+  Description: Boston Ballet brings Rudolf Nureyev's Don Quixote to life with its vibrant characters, virtuosic dan...
+  Image: https://via.placeholder.com/800x400.png?text=Don+Quixote
+
+- Balanchine/Robbins (2025-05-29 to 2025-06-08)
+  Description: Boston Ballet celebrates the genius of two legendary choreographers with a program featuring works b...
+  Image: https://via.placeholder.com/800x400.png?text=Balanchine/Robbins
+
+Test completed successfully

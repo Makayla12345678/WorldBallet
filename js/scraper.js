@@ -313,6 +313,7 @@ const Scraper = (() => {
             pob: 'Paris Opera Ballet',
             bolshoi: 'Bolshoi Ballet',
             royal: 'The Royal Ballet',
+            rb: 'The Royal Ballet',
             stuttgart: 'Stuttgart Ballet',
             boston: 'Boston Ballet',
             nbc: 'National Ballet of Canada'
@@ -332,6 +333,7 @@ const Scraper = (() => {
             pob: 'POB',
             bolshoi: 'BOLSHOI',
             royal: 'ROYAL',
+            rb: 'RB',
             stuttgart: 'STUTTGART',
             boston: 'BOSTON',
             nbc: 'NBC'
@@ -351,6 +353,7 @@ const Scraper = (() => {
             pob: 'https://www.operadeparis.fr/en/artists/ballet',
             bolshoi: 'https://www.bolshoi.ru/en/',
             royal: 'https://www.roh.org.uk/about/the-royal-ballet',
+            rb: 'https://www.roh.org.uk/about/the-royal-ballet',
             stuttgart: 'https://www.stuttgart-ballet.de/en/',
             boston: 'https://www.bostonballet.org',
             nbc: 'https://national.ballet.ca'
@@ -379,6 +382,7 @@ const Scraper = (() => {
             pob: 'The Paris Opera Ballet is the oldest national ballet company in the world, founded in 1669. It is the ballet company of the Paris Opera and is one of the most prestigious ballet companies in the world.',
             bolshoi: 'The Bolshoi Ballet is an internationally renowned classical ballet company, based at the Bolshoi Theatre in Moscow, Russia. Founded in 1776, the Bolshoi is among the world\'s oldest and most prestigious ballet companies.',
             royal: 'The Royal Ballet is an internationally renowned classical ballet company, based at the Royal Opera House in Covent Garden, London, England. Founded in 1931, it is one of the world\'s greatest ballet companies.',
+            rb: 'The Royal Ballet is one of the world\'s greatest ballet companies. Based at the Royal Opera House in London\'s Covent Garden, it brings together today\'s most dynamic and versatile dancers with a world-class orchestra and leading choreographers, composers, conductors, directors and creative teams to share awe-inspiring theatrical experiences with diverse audiences worldwide.',
             stuttgart: 'The Stuttgart Ballet is a leading German ballet company based in Stuttgart, Germany. Known for its innovative choreography and technical excellence, it has been a major influence in the ballet world since the 1960s.',
             boston: 'Founded in 1963, Boston Ballet is one of the leading dance companies in North America. The company maintains an internationally acclaimed repertoire and the largest ballet school in North America.',
             nbc: 'Founded in 1951, the National Ballet of Canada is one of the premier dance companies in North America. Based in Toronto, the company performs a traditional and contemporary repertoire of the highest caliber.'

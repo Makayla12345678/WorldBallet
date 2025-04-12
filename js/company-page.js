@@ -52,6 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load company performances
     DataService.getCompanyPerformances(companyId)
         .then(performances => {
+            console.log(`Received ${performances.length} performances for ${companyId}`);
+            
             // Process performances to identify current and next shows
             const currentDate = new Date();
             
@@ -65,18 +67,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Check if performance is the next upcoming one
                 performance.isNext = DataService.isNextPerformance(performances, performance);
+                
+                console.log(`Performance: ${performance.title}, Start: ${performance.startDate}, End: ${performance.endDate}, isPast: ${performance.isPast}, isCurrent: ${performance.isCurrent}`);
             });
             
             // Render current and upcoming performances
             const currentPerformances = performances.filter(p => !p.isPast);
+            console.log(`Found ${currentPerformances.length} current/upcoming performances`);
             UIController.renderCompanyPerformances(currentPerformances, 'currentPerformances');
             
-            // Render past performances
-            const pastPerformances = performances.filter(p => p.isPast);
-            UIController.renderCompanyPerformances(pastPerformances, 'pastPerformances', true);
-            
-            // Initialize past performances toggle
-            UIController.initPastPerformancesToggle('togglePastBtn', 'pastPerformances');
+            // For Boston Ballet, we don't want to show past performances
+            if (companyId === 'boston') {
+                // Hide the past performances section
+                const pastPerformancesSection = document.querySelector('.past-performances');
+                if (pastPerformancesSection) {
+                    pastPerformancesSection.style.display = 'none';
+                }
+            } else {
+                // Render past performances for other companies
+                const pastPerformances = performances.filter(p => p.isPast);
+                console.log(`Found ${pastPerformances.length} past performances`);
+                UIController.renderCompanyPerformances(pastPerformances, 'pastPerformances', true);
+                
+                // Initialize past performances toggle
+                UIController.initPastPerformancesToggle('togglePastBtn', 'pastPerformances');
+            }
         })
         .catch(error => {
             console.error('Error loading company performances:', error);

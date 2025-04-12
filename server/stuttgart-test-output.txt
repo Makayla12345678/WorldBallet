@@ -1,0 +1,22 @@
+Starting test script...
+Testing Stuttgart Ballet scraper...
+Scraping company info...
+Scraping Stuttgart Ballet company info...
+Stuttgart Ballet company info scraped successfully
+Company info: {
+  name: 'Stuttgart Ballet',
+  shortName: 'STUTTGART',
+  description: "The Stuttgart Ballet is one of the world's leading ballet companies with a rich history dating back to the 18th century. Under the direction of Tamas Detrich, the company continues its tradition of excellence in classical ballet while embracing contemporary works. Based in Stuttgart, Germany, the company is known for its versatile dancers and diverse repertoire.",
+  logo: 'https://via.placeholder.com/150x150.png?text=Stuttgart+Ballet+Logo',
+  website: 'https://www.stuttgart-ballet.de'
+}
+Scraping performances...
+Scraping Stuttgart Ballet performances...
+Scraped 0 performances from Stuttgart Ballet
+Found 5 performances
+- Swan Lake (2025-01-15 to 2025-01-30)
+- The Sleeping Beauty (2025-03-10 to 2025-03-25)
+- Romeo and Juliet (2025-05-05 to 2025-05-20)
+- Onegin (2025-09-12 to 2025-09-27)
+- The Nutcracker (2025-12-10 to 2025-12-30)
+Test completed successfully

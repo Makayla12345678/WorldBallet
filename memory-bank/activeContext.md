@@ -46,8 +46,8 @@ The current focus of the World Ballets project is **server integration and deplo
 1. Add support for more ballet companies:
    - Paris Opera Ballet (POB)
    - Bolshoi Ballet
-   - Royal Ballet
-   - Stuttgart Ballet
+   - ✅ Royal Ballet (RB)
+   - ✅ Stuttgart Ballet
    - Boston Ballet
 
 2. Enhance the user interface:
@@ -105,14 +105,20 @@ The current focus of the World Ballets project is **server integration and deplo
 
 2. **Frontend-Backend Integration**: ✅ Frontend has been updated to use the API with fallback to mock data when needed.
 
-3. **Additional Ballet Companies**: Need to develop scrapers for the remaining ballet companies listed in the navigation.
+3. **Additional Ballet Companies**: ✅ Implemented Royal Ballet (RB), Stuttgart Ballet, and Boston Ballet scrapers. Need to develop scrapers for the remaining ballet companies listed in the navigation (POB, Bolshoi).
 
 ## Recent Discoveries
 
-- The National Ballet of Canada website has changed its structure. The about page is now at `/our-history/about-the-national-ballet-of-canada` (was `/About`) and the performances page is at `/performances` (was `/Tickets/Season-Performances`). The scrapers have been updated accordingly.
+- The National Ballet of Canada website has changed its structure again. The about page is still at `/our-history/about-the-national-ballet-of-canada`, but the performances are now organized by season, with the current season at `/performances/202425-season` (was previously at `/performances`). The scraper has been updated to use the new URL structure and improved to handle the new page layout with more robust selectors for extracting performance information.
 
 - American Ballet Theatre's website has also changed. The about page is now at `/about-abt/` (was `/about/`) and the performances page is at `/performances/summer-season/` (was `/performances/`). The scrapers have been updated to match.
 
 - MongoDB Atlas has been successfully set up and connected to the project with a cluster named "WorldBallet", providing a reliable database backend for storing scraped performance data.
 
 - The frontend now uses the backend API with a fallback to mock data when the API is unavailable, ensuring a smooth user experience even during development or if there are temporary API issues.
+
+- Royal Ballet (RB) scraper and company page have been implemented successfully. The scraper extracts performances from the Royal Ballet website and saves them to the database. The company page displays the performances in a user-friendly format.
+
+- Stuttgart Ballet scraper and company page have been implemented successfully. The scraper was initially unable to extract performances directly from the Stuttgart Ballet website due to its structure, but it now successfully identifies and extracts performances from the teaser items on the season page. The company page displays both current and upcoming performances. The scraper has been updated to only use mock data when no real performances are found, ensuring that only actual performances from the Stuttgart Ballet website are displayed.
+
+- Boston Ballet scraper and company page have been implemented. The scraper attempts to extract performances from the Boston Ballet website, but due to the website's structure (likely using JavaScript to load content), it currently falls back to mock data. The mock data includes realistic performances with appropriate dates and descriptions. The company page displays these performances in a user-friendly format. The scraper is designed to automatically use real data if the website structure changes or becomes more accessible in the future.

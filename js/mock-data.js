@@ -37,6 +37,13 @@ const MockData = (() => {
                 description: "The Royal Ballet is an internationally renowned classical ballet company, based at the Royal Opera House in Covent Garden, London, England. Founded in 1931, it is one of the world's greatest ballet companies.",
                 website: "https://www.roh.org.uk/about/the-royal-ballet"
             },
+            rb: {
+                name: "The Royal Ballet",
+                shortName: "RB",
+                logo: "https://via.placeholder.com/150x150.png?text=RB+Logo",
+                description: "The Royal Ballet is one of the world's greatest ballet companies. Based at the Royal Opera House in London's Covent Garden, it brings together today's most dynamic and versatile dancers with a world-class orchestra and leading choreographers, composers, conductors, directors and creative teams to share awe-inspiring theatrical experiences with diverse audiences worldwide.",
+                website: "https://www.roh.org.uk/about/the-royal-ballet"
+            },
             stuttgart: {
                 name: "Stuttgart Ballet",
                 shortName: "STUTTGART",
@@ -60,6 +67,80 @@ const MockData = (() => {
             }
         },
         performances: {
+            rb: [
+                {
+                    id: "rb-1",
+                    title: "Balanchine: Three Signature Works",
+                    company: "rb",
+                    startDate: "2025-03-28",
+                    endDate: "2025-04-08",
+                    description: "Sensuous and shimmering beauty in three works by the man who defined American ballet. With its extreme speed, dynamism and athleticism, Balanchine's choreography pushed the boundaries of the art form. This program features three of Balanchine's most celebrated works: 'Apollo', 'Agon', and 'Symphony in C', showcasing the Royal Ballet dancers' technical brilliance and artistic versatility.",
+                    image: "https://via.placeholder.com/800x400.png?text=Balanchine+Three+Signature+Works",
+                    videoUrl: "https://www.youtube.com/embed/XFzSh-XVhBw",
+                    isCurrent: true,
+                    isNext: false
+                },
+                {
+                    id: "rb-2",
+                    title: "Romeo and Juliet",
+                    company: "rb",
+                    startDate: "2025-04-15",
+                    endDate: "2025-05-02",
+                    description: "Kenneth MacMillan's passionate choreography for Romeo and Juliet shows The Royal Ballet at its dramatic finest. Set to Prokofiev's iconic score, this production has been a cornerstone of the Company's repertory since its creation in 1965. The doomed lovers attempt to find their way through the color and action of Renaissance Verona, where a busy market all too quickly bursts into sword fighting and a family feud leads to tragedy for both the Montagues and the Capulets.",
+                    image: "https://via.placeholder.com/800x400.png?text=Romeo+and+Juliet",
+                    videoUrl: "https://www.youtube.com/embed/AhB9UoQXr0U",
+                    isCurrent: false,
+                    isNext: true
+                },
+                {
+                    id: "rb-3",
+                    title: "Swan Lake",
+                    company: "rb",
+                    startDate: "2025-05-10",
+                    endDate: "2025-05-28",
+                    description: "The Royal Ballet's sumptuous production of Swan Lake returns to the Royal Opera House stage. Prince Siegfried chances upon a flock of swans while out hunting. When one of the swans turns into a beautiful woman, Odette, he is enraptured. But she is under a spell that holds her captive, allowing her to regain her human form only at night. Liam Scarlett's glorious production, with its spectacular designs by John Macfarlane, is a testament to the Company's heritage and a must-see for ballet lovers.",
+                    image: "https://via.placeholder.com/800x400.png?text=Swan+Lake",
+                    videoUrl: "https://www.youtube.com/embed/9rJoB7y6Ncs",
+                    isCurrent: false,
+                    isNext: false
+                },
+                {
+                    id: "rb-4",
+                    title: "The Sleeping Beauty",
+                    company: "rb",
+                    startDate: "2025-06-05",
+                    endDate: "2025-06-20",
+                    description: "The Sleeping Beauty holds a very special place in The Royal Ballet's heart and history. It was the first performance given by the Company when the Royal Opera House reopened at Covent Garden in 1946 after World War II. In 2006, this original staging was revived and has been delighting audiences ever since. The masterful 19th-century choreography of Marius Petipa is combined with sections created for The Royal Ballet by Frederick Ashton, Anthony Dowell and Christopher Wheeldon.",
+                    image: "https://via.placeholder.com/800x400.png?text=The+Sleeping+Beauty",
+                    videoUrl: "https://www.youtube.com/embed/1-94SzKX1Wo",
+                    isCurrent: false,
+                    isNext: false
+                },
+                {
+                    id: "rb-5",
+                    title: "Woolf Works",
+                    company: "rb",
+                    startDate: "2025-07-08",
+                    endDate: "2025-07-19",
+                    description: "Wayne McGregor's ballet triptych Woolf Works, inspired by the writings of Virginia Woolf, returns to the Royal Opera House. Named \"a compellingly moving experience\" by The Independent, Woolf Works met with outstanding critical acclaim on its premiere in 2015, and went on to win McGregor the Critics' Circle Award for Best Classical Choreography and the Olivier Award for Best New Dance Production. The ballet is inspired by three of Woolf's novels: Mrs Dalloway, Orlando, and The Waves, and features music by Max Richter.",
+                    image: "https://via.placeholder.com/800x400.png?text=Woolf+Works",
+                    videoUrl: "https://www.youtube.com/embed/QwCmTjJZPo8",
+                    isCurrent: false,
+                    isNext: false
+                },
+                {
+                    id: "rb-6",
+                    title: "The Nutcracker",
+                    company: "rb",
+                    startDate: "2025-12-05",
+                    endDate: "2025-12-30",
+                    description: "The Royal Ballet's glorious production of The Nutcracker, created by Peter Wright in 1984, is the production par excellence of an all-time ballet favorite. On Christmas Eve, Clara receives an enchanted Nutcracker as a gift. Together they defeat the Mouse King and journey through the glistening Land of Snow to the Kingdom of Sweets, where the Sugar Plum Fairy and her Prince greet them with a celebration of dances from around the world. Tchaikovsky's score contains some of ballet's most memorable music, from the delicate Dance of the Sugar Plum Fairy to the iconic Waltz of the Flowers.",
+                    image: "https://via.placeholder.com/800x400.png?text=The+Nutcracker",
+                    videoUrl: "https://www.youtube.com/embed/so5HKPJvCBM",
+                    isCurrent: false,
+                    isNext: false
+                }
+            ],
             nbc: [
                 {
                     id: "nbc-1",
