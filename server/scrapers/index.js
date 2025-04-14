@@ -3,6 +3,7 @@ const abtScraper = require('./abt');
 const rbScraper = require('./rb');
 const stuttgartScraper = require('./stuttgart');
 const bostonScraper = require('./boston');
+const bolshoiScraper = require('./bolshoi');
 const Company = require('../models/Company');
 const Performance = require('../models/Performance');
 
@@ -30,7 +31,7 @@ const scrapeAll = async () => {
     
     // TODO: Add other companies as they are implemented
     // await scrapeCompany('pob');
-    // await scrapeCompany('bolshoi');
+    await scrapeCompany('bolshoi');
     
     console.log('All companies scraped successfully');
     return true;
@@ -72,6 +73,10 @@ const scrapeCompany = async (companyId) => {
       case 'boston':
         companyInfo = await bostonScraper.scrapeCompanyInfo();
         performances = await bostonScraper.scrapePerformances();
+        break;
+      case 'bolshoi':
+        companyInfo = await bolshoiScraper.scrapeCompanyInfo();
+        performances = await bolshoiScraper.scrapePerformances();
         break;
       // TODO: Add other companies as they are implemented
       default:
