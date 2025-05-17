@@ -208,16 +208,31 @@ section {
     padding: var(--spacing-lg) var(--spacing-md);
     background-color: var(--color-primary);
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
+    display: block;
+    box-sizing: border-box;
+}
+
+.tagline-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
 }
 
 .banner-tagline h2 {
-    font-size: 1.8rem;
-    letter-spacing: 1px;
-    margin-bottom: 0;
+    font-size: 1.6rem;
+    letter-spacing: 0.5px;
+    margin: 0 auto;
     white-space: normal;
     overflow-wrap: break-word;
     word-wrap: break-word;
+    line-height: 1.4;
+    display: inline-block;
+}
+
+.nowrap {
+    white-space: nowrap;
+    display: inline-block;
 }
 
 /* ===== FEATURED PERFORMANCES ===== */
@@ -427,13 +442,23 @@ footer {
     }
     
     .banner-tagline h2 {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
 }
 
 @media (max-width: 767px) {
     .banner-tagline h2 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+    }
+    
+    .tagline-container {
+        padding: 0 var(--spacing-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-tagline h2 {
+        font-size: 1.2rem;
     }
 }
 
