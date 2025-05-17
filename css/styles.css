@@ -125,6 +125,23 @@ section {
     letter-spacing: 1px;
 }
 
+.nav-link {
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    background-color: var(--color-accent);
+    color: var(--color-dark-gray);
+    border-bottom: 2px solid transparent;
+}
+
 /* ===== HERO BANNER ===== */
 .hero-banner {
     position: relative;

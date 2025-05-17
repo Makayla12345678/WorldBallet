@@ -44,6 +44,8 @@ The World Ballets project is currently in the **development phase**, with the fr
 - ✅ Boston Ballet scraper and page
 
 ### Enhanced Features
+- ✅ Calendar view for performances across all companies
+- ✅ Basic filtering for performances by company
 - ❌ Advanced filtering for performances
 - ❌ Search functionality
 - ❌ Performance detail pages
@@ -82,6 +84,7 @@ The World Ballets project is currently in the **development phase**, with the fr
 | 2025-04-03 | Royal Ballet (RB) scraper and page | ✅ Completed |
 | 2025-04-05 | Stuttgart Ballet scraper and page | ✅ Completed |
 | 2025-04-05 | Boston Ballet scraper and page | ✅ Completed |
+| 2025-04-10 | Calendar view for performances | ✅ Completed |
 | 2025-04-15 | Additional ballet companies (POB, Bolshoi) | ❌ In Progress |
 | 2025-04-30 | Production deployment | ❌ Not Started |
 
@@ -126,6 +129,13 @@ The World Ballets project is currently in the **development phase**, with the fr
    - Implement scrapers for remaining ballet companies (POB, Bolshoi)
    - Create company pages for each remaining company
    - Test data flow from scraper to frontend
+
+5. **Enhance User Experience** 
+   - ✅ Implement calendar view for performances across all companies
+   - ✅ Add basic filtering by company
+   - Implement advanced filtering options
+   - Add search functionality
+   - Improve mobile responsiveness
 
 ## Blockers and Dependencies
 

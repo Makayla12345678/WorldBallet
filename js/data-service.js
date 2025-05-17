@@ -103,6 +103,39 @@ const DataService = (() => {
     };
     
     /**
+     * Fetches performances for a specific date across all companies
+     * @param {string} date - Date in YYYY-MM-DD format
+     * @returns {Promise} - Resolves with performances data for the specified date
+     */
+    const getPerformancesByDate = async (date) => {
+        try {
+            const response = await fetch(`${API_BASE_URL}/performances/by-date/${date}`);
+            
+            if (!response.ok) {
+                throw new Error(`Failed to fetch performances for date ${date}: ${response.status} ${response.statusText}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error(`Error fetching performances for date ${date}:`, error);
+            console.warn('Falling back to mock data (excluding NBC)');
+            
+            // Get all mock performances and filter by date
+            const allPerformances = MockData.getAllPerformances();
+            const filteredPerformances = allPerformances.filter(p => {
+                const performanceStartDate = new Date(p.startDate);
+                const performanceEndDate = new Date(p.endDate);
+                const targetDate = new Date(date);
+                
+                // Check if the target date falls within the performance date range
+                return targetDate >= performanceStartDate && targetDate <= performanceEndDate && p.company !== 'nbc';
+            });
+            
+            return filteredPerformances;
+        }
+    };
+    
+    /**
      * Fetches featured performances for the homepage
      * @param {number} count - Number of featured performances to return
      * @returns {Promise} - Resolves with featured performances data
@@ -199,6 +232,7 @@ const DataService = (() => {
         getCompanyInfo,
         getCompanyPerformances,
         getAllCurrentPerformances,
+        getPerformancesByDate,
         getFeaturedPerformances,
         formatDateRange,
         isCurrentPerformance,

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Calendar - World Ballet</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/calendar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo-container">
+            <h1>WORLD BALLET</h1>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="companies/abt.html" class="company-logo">AMERICAN BALLET</a></li>
+                <li><a href="companies/pob.html" class="company-logo">PARIS BALLET</a></li>
+                <li><a href="companies/bolshoi.html" class="company-logo">BOLSHOI</a></li>
+                <li><a href="companies/rb.html" class="company-logo">ROYAL</a></li>
+                <li><a href="companies/stuttgart.html" class="company-logo">STUTTGART</a></li>
+                <li><a href="companies/boston.html" class="company-logo">BOSTON</a></li>
+                <li><a href="companies/nbc.html" class="company-logo">NBOC</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="calendar-page">
+        <section class="calendar-header">
+            <h1>Performance Calendar</h1>
+            <p>Find ballet performances from all companies on specific dates</p>
+            
+            <div class="calendar-controls">
+                <button id="prevMonth" class="calendar-nav-btn">&lt; Previous</button>
+                <h2 id="currentMonthYear">May 2025</h2>
+                <button id="nextMonth" class="calendar-nav-btn">Next &gt;</button>
+            </div>
+            
+            <div class="calendar-filters">
+                <h3>Filter by Company:</h3>
+                <div class="company-filters">
+                    <label><input type="checkbox" value="all" checked> All Companies</label>
+                    <label><input type="checkbox" value="abt"> American Ballet Theatre</label>
+                    <label><input type="checkbox" value="pob"> Paris Opera Ballet</label>
+                    <label><input type="checkbox" value="bolshoi"> Bolshoi Ballet</label>
+                    <label><input type="checkbox" value="rb"> Royal Ballet</label>
+                    <label><input type="checkbox" value="stuttgart"> Stuttgart Ballet</label>
+                    <label><input type="checkbox" value="boston"> Boston Ballet</label>
+                    <label><input type="checkbox" value="nbc"> National Ballet of Canada</label>
+                </div>
+            </div>
+        </section>
+
+        <section class="calendar-container">
+            <div class="calendar-weekdays">
+                <div>Sun</div>
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+            </div>
+            <div id="calendarGrid" class="calendar-grid">
+                <!-- Calendar days will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <section id="selectedDatePerformances" class="selected-date-performances">
+            <h2 id="selectedDateHeading">Performances on <span id="selectedDate">May 17, 2025</span></h2>
+            <div id="performancesList" class="performances-list">
+                <!-- Performances for selected date will be populated by JavaScript -->
+                <div class="no-performances-message">Select a date to view performances</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 World Ballet. All rights reserved.</p>
+            <p>Data sourced from official ballet company websites.</p>
+        </div>
+    </footer>
+
+    <script src="js/mock-data.js"></script>
+    <script src="js/data-service.js"></script>
+    <script src="js/calendar.js"></script>
+</body>
+</html>

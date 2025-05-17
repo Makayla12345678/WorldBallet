@@ -123,6 +123,53 @@ router.get('/upcoming', async (req, res) => {
 });
 
 /**
+ * @route   GET /api/performances/by-date/:date
+ * @desc    Get all performances for a specific date
+ * @access  Public
+ */
+router.get('/by-date/:date', async (req, res) => {
+  try {
+    const dateParam = req.params.date; // Format: YYYY-MM-DD
+    const targetDate = new Date(dateParam);
+    
+    // Validate date format
+    if (isNaN(targetDate.getTime())) {
+      return res.status(400).json({ message: 'Invalid date format. Use YYYY-MM-DD' });
+    }
+    
+    // Set time to beginning of day
+    targetDate.setHours(0, 0, 0, 0);
+    
+    // Set end of day
+    const endOfDay = new Date(targetDate);
+    endOfDay.setHours(23, 59, 59, 999);
+    
+    // Find performances that are active on the target date
+    const performances = await Performance.find({
+      startDate: { $lte: endOfDay },
+      endDate: { $gte: targetDate }
+    }).sort({ startDate: 1 });
+    
+    // Enhance performances with company information
+    const enhancedPerformances = await Promise.all(
+      performances.map(async (performance) => {
+        const company = await Company.findOne({ companyId: performance.company });
+        return {
+          ...performance.toObject(),
+          companyName: company ? company.name : 'Unknown Company',
+          companyShortName: company ? company.shortName : 'Unknown'
+        };
+      })
+    );
+    
+    res.json(enhancedPerformances);
+  } catch (error) {
+    console.error(`Error fetching performances for date ${req.params.date}:`, error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+/**
  * @route   GET /api/performances/:id
  * @desc    Get performance by ID
  * @access  Public

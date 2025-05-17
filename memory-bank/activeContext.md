@@ -122,3 +122,11 @@ The current focus of the World Ballets project is **server integration and deplo
 - Stuttgart Ballet scraper and company page have been implemented successfully. The scraper was initially unable to extract performances directly from the Stuttgart Ballet website due to its structure, but it now successfully identifies and extracts performances from the teaser items on the season page. The company page displays both current and upcoming performances. The scraper has been updated to only use mock data when no real performances are found, ensuring that only actual performances from the Stuttgart Ballet website are displayed.
 
 - Boston Ballet scraper and company page have been implemented. The scraper attempts to extract performances from the Boston Ballet website, but due to the website's structure (likely using JavaScript to load content), it currently falls back to mock data. The mock data includes realistic performances with appropriate dates and descriptions. The company page displays these performances in a user-friendly format. The scraper is designed to automatically use real data if the website structure changes or becomes more accessible in the future.
+
+- Calendar feature has been implemented to allow users to view performances by date across all companies. The calendar includes:
+  - A monthly grid view with navigation between months
+  - Visual indicators for days with performances
+  - Company-specific color coding for performances
+  - Filtering by company
+  - A detailed view of performances for the selected date
+  - A new API endpoint (/api/performances/by-date/:date) to fetch performances by date
