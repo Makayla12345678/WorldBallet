@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Romeo and Juliet",
+    "startDate": "2025-05-26",
+    "endDate": "2025-05-26",
+    "description": "The greatest love story ever told – through ballet.",
+    "moreInfoUrl": "https://www.roh.org.uk/tickets-and-events/romeo-and-juliet-details",
+    "image": "https://images.prismic.io/royal-opera-house/102a016c-282c-4903-bf99-112375d20d26_Matthew+Ball+as+Romeo+and+Yasmine+Naghdi+as+Juliet+in+Romeo+and+Juliet+%C2%A92015+ROH.+Photograph+by+Alice+Pennefather.jpg?auto=compress,format&rect=0,610,2335,1751&w=960&h=720"
+  },
+  {
+    "title": "Friends Rehearsals",
+    "startDate": "2025-05-08",
+    "endDate": "2025-05-08",
+    "description": "",
+    "moreInfoUrl": "https://www.roh.org.uk/tickets-and-events/friends-rehearsals-details",
+    "image": "https://images.prismic.io/royal-opera-house/6ec99437-75f1-46ad-b99c-995bffc500bc_Auditorium+%C2%A92022+ROH.+Photograph+by+Laura+Aziz.jpg?auto=compress,format&rect=219,0,3560,2670&w=960&h=720"
+  },
+  {
+    "title": "Ballet to Broadway: Wheeldon Works",
+    "startDate": "2025-05-27",
+    "endDate": "2025-05-27",
+    "description": "Sensuous contemporary ballet meets the energy of musical theatre in four distinctive short works.",
+    "moreInfoUrl": "https://www.roh.org.uk/tickets-and-events/wheeldon-ballet-to-broadway-details",
+    "image": "https://images.prismic.io/royal-opera-house/ZuMB67VsGrYSvTXT_AnAmericanInParis%C2%A92024SebastianNevols.jpg?auto=format%2Ccompress&rect=156%2C0%2C5333%2C4000&w=960&h=720"
+  },
+  {
+    "title": "Onegin",
+    "startDate": "2025-06-12",
+    "endDate": "2025-06-12",
+    "description": "A bittersweet ballet of first love and regret.",
+    "moreInfoUrl": "https://www.roh.org.uk/tickets-and-events/onegin-details",
+    "image": "https://images.prismic.io/royal-opera-house/Zry0k0aF0TcGI7Ya_Onegin%C2%A92024SebastianNevols_WEB.jpg?auto=format,compress?auto=compress,format&rect=653,11,3900,2925&w=960&h=720"
+  },
+  {
+    "title": "The Royal Ballet Class on Stage",
+    "startDate": "2025-12-17",
+    "endDate": "2025-12-17",
+    "description": "Get a glimpse into the daily life of the dancers of The Royal Ballet as they take class on the Main Stage.",
+    "moreInfoUrl": "https://www.roh.org.uk/tickets-and-events/the-royal-ballet-class-on-stage-details",
+    "image": "https://images.prismic.io/royal-opera-house/Z-Pvy3dAxsiBv7FY_FumiKaneko%2CRoyalBalletClassonStage%C2%A92015ROH.PhotographedbyAndrejUspenski.jpg?auto=format,compress&rect=349,0,4868,3651&w=960&h=720"
+  }
+]

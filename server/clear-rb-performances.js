@@ -4,8 +4,9 @@
 
 // Import required modules
 const mongoose = require('mongoose');
+const path = require('path');
 const Performance = require('./models/Performance');
-require('dotenv').config();
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
 // Main function to clear RB performances
 (async () => {

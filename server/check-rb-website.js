@@ -1,7 +1,7 @@
 const axios = require('axios');
 const fs = require('fs').promises;
 
-const url = 'https://www.rbo.org.uk/tickets-and-events?event-type=ballet-and-dance&venue=main-stage';
+const url = 'https://www.roh.org.uk/tickets-and-events?event-type=ballet-and-dance&venue=main-stage';
 
 async function checkWebsite() {
   try {

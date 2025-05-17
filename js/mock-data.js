@@ -18,7 +18,7 @@ const MockData = (() => {
             },
             pob: {
                 name: "Paris Opera Ballet",
-                shortName: "POB",
+                shortName: "PARIS BALLET",
                 logo: "https://via.placeholder.com/150x150.png?text=POB+Logo",
                 description: "The Paris Opera Ballet is the oldest national ballet company in the world, founded in 1669. It is the ballet company of the Paris Opera and is one of the most prestigious ballet companies in the world.",
                 website: "https://www.operadeparis.fr/en/artists/ballet"
@@ -60,13 +60,75 @@ const MockData = (() => {
             },
             nbc: {
                 name: "National Ballet of Canada",
-                shortName: "NBC",
-                logo: "https://via.placeholder.com/150x150.png?text=NBC+Logo",
+                shortName: "NBOC",
+                logo: "https://via.placeholder.com/150x150.png?text=NBOC+Logo",
                 description: "Founded in 1951, the National Ballet of Canada is one of the premier dance companies in North America. Based in Toronto, the company performs a traditional and contemporary repertoire of the highest caliber.",
                 website: "https://national.ballet.ca"
             }
         },
         performances: {
+            bolshoi: [
+                {
+                    id: "bolshoi-1",
+                    title: "Swan Lake",
+                    company: "bolshoi",
+                    startDate: "2025-06-15",
+                    endDate: "2025-06-20",
+                    description: "Tchaikovsky's masterpiece performed by the Bolshoi Ballet.",
+                    image: "https://via.placeholder.com/800x400.png?text=Swan+Lake",
+                    videoUrl: "",
+                    isCurrent: false,
+                    isNext: true
+                },
+                {
+                    id: "bolshoi-2",
+                    title: "The Nutcracker",
+                    company: "bolshoi",
+                    startDate: "2025-12-20",
+                    endDate: "2025-12-30",
+                    description: "A magical Christmas ballet featuring Tchaikovsky's beloved score.",
+                    image: "https://via.placeholder.com/800x400.png?text=The+Nutcracker",
+                    videoUrl: "",
+                    isCurrent: false,
+                    isNext: false
+                },
+                {
+                    id: "bolshoi-3",
+                    title: "Don Quixote",
+                    company: "bolshoi",
+                    startDate: "2025-09-10",
+                    endDate: "2025-09-15",
+                    description: "A spirited ballet based on Cervantes' famous novel.",
+                    image: "https://via.placeholder.com/800x400.png?text=Don+Quixote",
+                    videoUrl: "",
+                    isCurrent: false,
+                    isNext: false
+                },
+                {
+                    id: "bolshoi-4",
+                    title: "Romeo and Juliet",
+                    company: "bolshoi",
+                    startDate: "2025-11-05",
+                    endDate: "2025-11-10",
+                    description: "Prokofiev's passionate ballet brings Shakespeare's tragedy to life.",
+                    image: "https://via.placeholder.com/800x400.png?text=Romeo+and+Juliet",
+                    videoUrl: "",
+                    isCurrent: false,
+                    isNext: false
+                },
+                {
+                    id: "bolshoi-5",
+                    title: "La Bayadère",
+                    company: "bolshoi",
+                    startDate: "2025-08-01",
+                    endDate: "2025-08-06",
+                    description: "An exotic and tragic love story set in Royal India.",
+                    image: "https://via.placeholder.com/800x400.png?text=La+Bayadère",
+                    videoUrl: "",
+                    isCurrent: false,
+                    isNext: false
+                }
+            ],
             rb: [
                 {
                     id: "rb-1",

@@ -1,5 +1,5 @@
 /**
- * World Ballets - API Integration with Mock Data Fallback
+ * World Ballet - API Integration with Mock Data Fallback
  * 
  * This file replaces the original data-service.js to use the server API
  * instead of the browser-based scraper, with fallback to mock data when the API is unavailable.

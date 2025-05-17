@@ -55,7 +55,7 @@ const scrapeCompanyInfo = async () => {
     
     return {
       name: 'The Royal Ballet',
-      shortName: 'RB',
+      shortName: 'Royal',
       description: 'The Royal Ballet is one of the world\'s greatest ballet companies, based at the Royal Opera House in London\'s Covent Garden.',
       logo: 'https://static.roh.org.uk/redesign/Logo_detail.png',
       website: 'https://www.roh.org.uk'
@@ -64,9 +64,9 @@ const scrapeCompanyInfo = async () => {
     console.error('Error scraping Royal Ballet company info:', error.message);
     return {
       name: 'The Royal Ballet',
-      shortName: 'RB',
+      shortName: 'Royal',
       description: 'The Royal Ballet is one of the world\'s greatest ballet companies, based at the Royal Opera House in London\'s Covent Garden.',
-      logo: 'https://via.placeholder.com/150x150.png?text=RB+Logo',
+      logo: 'https://via.placeholder.com/150x150.png?text=Royal+Logo',
       website: 'https://www.roh.org.uk'
     };
   }
@@ -95,6 +95,8 @@ const scrapePerformances = async () => {
     
     // Set viewport
     await page.setViewport({ width: 1920, height: 1080 });
+    
+    // We won't use request interception as it can cause redirect loops
     
     console.log('Navigating to Royal Ballet events page...');
     
@@ -138,7 +140,10 @@ const scrapePerformances = async () => {
           const dateText = card.querySelector('.fuRcMt')?.textContent?.trim() || '';
           const description = card.querySelector('.leuwGK')?.textContent?.trim() || '';
           const imageUrl = card.querySelector('img')?.src || '';
-          const moreInfoUrl = card.querySelector('.glJKay')?.href || '';
+          // Get the href and ensure it uses the correct domain
+          let moreInfoUrl = card.querySelector('.glJKay')?.href || '';
+          // Fix domain if needed
+          moreInfoUrl = moreInfoUrl.replace('www.rbo.org.uk', 'www.roh.org.uk');
           
           if (title && dateText) {
             results.push({
@@ -166,7 +171,7 @@ const scrapePerformances = async () => {
         title: perf.title,
         startDate,
         endDate,
-        description: perf.description,
+        description: perf.description || `Performance by The Royal Ballet: ${perf.title}`,
         moreInfoUrl: perf.moreInfoUrl,
         image: perf.image || `https://via.placeholder.com/800x400.png?text=${encodeURIComponent(perf.title)}`
       };

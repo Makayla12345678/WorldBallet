@@ -193,10 +193,25 @@ const scrapePerformances = async () => {
           imageUrl = `https://www.abt.org${imageUrl}`;
         }
         
-        // Default image if none found
-        if (!imageUrl) {
-          imageUrl = `https://via.placeholder.com/800x400.png?text=${encodeURIComponent(title)}`;
-        }
+    // Default image if none found
+    if (!imageUrl) {
+      // Use local ballet images based on the title
+      if (title.toLowerCase().includes('swan lake')) {
+        imageUrl = 'https://via.placeholder.com/800x400.png?text=Swan+Lake';
+      } else if (title.toLowerCase().includes('giselle')) {
+        imageUrl = 'https://via.placeholder.com/800x400.png?text=Giselle';
+      } else if (title.toLowerCase().includes('woolf works')) {
+        imageUrl = 'https://via.placeholder.com/800x400.png?text=Woolf+Works';
+      } else if (title.toLowerCase().includes('winter')) {
+        imageUrl = 'https://via.placeholder.com/800x400.png?text=The+Winters+Tale';
+      } else if (title.toLowerCase().includes('sylvia')) {
+        imageUrl = 'https://via.placeholder.com/800x400.png?text=Sylvia';
+      } else if (title.toLowerCase().includes('abtkids')) {
+        imageUrl = 'https://via.placeholder.com/800x400.png?text=ABTKids';
+      } else {
+        imageUrl = 'https://via.placeholder.com/800x400.png?text=ABT+Ballet'; // Default placeholder
+      }
+    }
         
         // Check if there's a video
         let videoUrl = '';
@@ -258,8 +273,65 @@ const scrapePerformances = async () => {
   } catch (error) {
     console.error('Error scraping American Ballet Theatre performances:', error);
     
-    // Return mock data if scraping fails
-    return getMockPerformances();
+    // Return mock data with local images if scraping fails
+    return [
+      {
+        title: 'Swan Lake (First Run)',
+        startDate: `2025-06-10`,
+        endDate: `2025-06-17`,
+        description: 'Celebrating 25 years since its World Premiere, Kevin McKenzie\'s Swan Lake will kick off the 2025 Summer season with eight performances led by Isabella Boylston as Odette/Odile and Daniel Camargo as Prince Siegfried. Set to music by Peter Ilyitch Tchaikovsky, Swan Lake is choreographed by Kevin McKenzie after Marius Petipa and Lev Ivanov and features scenery and costumes by Zack Brown and lighting by Duane Schuler.',
+        image: 'https://via.placeholder.com/800x400.png?text=Swan+Lake',
+        videoUrl: 'https://www.youtube.com/embed/9rJoB7y6Ncs'
+      },
+      {
+        title: 'Woolf Works',
+        startDate: `2025-06-17`,
+        endDate: `2025-06-21`,
+        description: 'In the second week of its Summer season, ABT will present Wayne McGregor\'s Woolf Works for five performances, beginning on Tuesday, June 17 at 7:30 P.M. led by Devon Teuscher and James Whiteside. Woolf Works features choreography by Wayne McGregor and music by Max Richter, with set design by Ciguë ("I now, I then"), We Not I ("Becomings"), and Wayne McGregor ("Tuesday"); costume design by Moritz Junge; lighting design by Lucy Carter; video design by Ravi Deepres; sound design by Chris Ekers; make up by Kabuki; and dramaturgy by Uzma Hameed.',
+        image: 'https://via.placeholder.com/800x400.png?text=Woolf+Works',
+        videoUrl: ''
+      },
+      {
+        title: 'Giselle',
+        startDate: `2025-06-21`,
+        endDate: `2025-06-28`,
+        description: 'Giselle will return to American Ballet Theatre for seven performances beginning with the opening matinee performance on Saturday, June 21 at 2:00 P.M. being led by Christine Shevchenko in the title role and Calvin Royal III as Albrecht. Staged by Kevin McKenzie with choreography after Jean Coralli, Jules Perrot, and Marius Petipa, Giselle is set to music by Adolphe Adam, orchestrated by John Lanchbery, with scenery by Gianni Quaranta, costumes by Anna Anni, and lighting by Jennifer Tipton.',
+        image: 'https://via.placeholder.com/800x400.png?text=Giselle',
+        videoUrl: 'https://www.youtube.com/embed/eSx_kqe6ox0'
+      },
+      {
+        title: 'The Winter\'s Tale',
+        startDate: `2025-06-28`,
+        endDate: `2025-07-05`,
+        description: 'American Ballet Theatre\'s New York Premiere of Christopher Wheeldon\'s The Winter\'s Tale will open at the Royal Opera House, Covent Garden, London. The award-winning production will receive its Company Premiere by American Ballet Theatre on April 3, 2025, at Segerstrom Center for the Arts in Costa Mesa, California. At the Metropolitan Opera House, the ballet will be given seven performances through Saturday, July 5, featuring music by Joby Talbot, set and costume design by Bob Crowley, lighting design by Natasha Katz, video design by Daniel Brodie, and silk design by Basil Twist.',
+        image: 'https://via.placeholder.com/800x400.png?text=The+Winters+Tale',
+        videoUrl: ''
+      },
+      {
+        title: 'Sylvia',
+        startDate: `2025-07-08`,
+        endDate: `2025-07-14`,
+        description: 'Sylvia will return to American Ballet Theatre in the fourth week of the Summer season, beginning on Tuesday, July 8 at 7:30 P.M. and running for seven performances. The opening night cast of Sylvia will be led by Catherine Hurlin as Sylvia and Isaac Hernández as Aminta, both in their debuts. With choreography by Frederick Ashton, music by Léo Delibes, and staging by Christopher Newton, Sylvia is set in mythical Greece and tells the story of the chaste nymph Sylvia who is united by the deity Eros with the lovelorn shepherd Aminta. Sylvia features scenery and costumes by Christopher and Robin Ironside, with additional designs by Peter Farmer and lighting by Mark Jonathan.',
+        image: 'https://via.placeholder.com/800x400.png?text=Sylvia',
+        videoUrl: ''
+      },
+      {
+        title: 'Swan Lake (Second Run)',
+        startDate: `2025-07-14`,
+        endDate: `2025-07-19`,
+        description: 'Swan Lake will return for eight performance in the fifth week of ABT\'s Summer season, led by Catherine Hurlin as Odette/Odile and James Whiteside as Prince Siegfried on Monday, July 14 at 7:30 P.M. Set to music by Peter Ilyitch Tchaikovsky, Swan Lake is choreographed by Kevin McKenzie after Marius Petipa and Lev Ivanov and features scenery and costumes by Zack Brown and lighting by Duane Schuler.',
+        image: 'https://via.placeholder.com/800x400.png?text=Swan+Lake',
+        videoUrl: 'https://www.youtube.com/embed/9rJoB7y6Ncs'
+      },
+      {
+        title: 'ABTKids',
+        startDate: `2025-06-14`,
+        endDate: `2025-06-14`,
+        description: 'ABTKids, American Ballet Theatre\'s annual one-hour introduction to ballet for families, is scheduled for Saturday, June 14 at 11:00 A.M. Tickets start at $25.',
+        image: 'https://via.placeholder.com/800x400.png?text=ABTKids',
+        videoUrl: ''
+      }
+    ];
   }
 };
 
@@ -277,7 +349,7 @@ const getMockPerformances = () => {
       startDate: `${year}-06-10`,
       endDate: `${year}-06-17`,
       description: 'Celebrating 25 years since its World Premiere, Kevin McKenzie\'s Swan Lake will kick off the 2025 Summer season with eight performances led by Isabella Boylston as Odette/Odile and Daniel Camargo as Prince Siegfried. Set to music by Peter Ilyitch Tchaikovsky, Swan Lake is choreographed by Kevin McKenzie after Marius Petipa and Lev Ivanov and features scenery and costumes by Zack Brown and lighting by Duane Schuler.',
-      image: 'https://via.placeholder.com/800x400.png?text=ABT+Swan+Lake',
+      image: 'https://via.placeholder.com/800x400.png?text=Swan+Lake',
       videoUrl: 'https://www.youtube.com/embed/9rJoB7y6Ncs'
     },
     {
@@ -285,7 +357,7 @@ const getMockPerformances = () => {
       startDate: `${year}-06-17`,
       endDate: `${year}-06-21`,
       description: 'In the second week of its Summer season, ABT will present Wayne McGregor\'s Woolf Works for five performances, beginning on Tuesday, June 17 at 7:30 P.M. led by Devon Teuscher and James Whiteside. Woolf Works features choreography by Wayne McGregor and music by Max Richter, with set design by Ciguë ("I now, I then"), We Not I ("Becomings"), and Wayne McGregor ("Tuesday"); costume design by Moritz Junge; lighting design by Lucy Carter; video design by Ravi Deepres; sound design by Chris Ekers; make up by Kabuki; and dramaturgy by Uzma Hameed.',
-      image: 'https://via.placeholder.com/800x400.png?text=ABT+Woolf+Works',
+      image: 'https://via.placeholder.com/800x400.png?text=Woolf+Works',
       videoUrl: ''
     },
     {
@@ -293,7 +365,7 @@ const getMockPerformances = () => {
       startDate: `${year}-06-21`,
       endDate: `${year}-06-28`,
       description: 'Giselle will return to American Ballet Theatre for seven performances beginning with the opening matinee performance on Saturday, June 21 at 2:00 P.M. being led by Christine Shevchenko in the title role and Calvin Royal III as Albrecht. Staged by Kevin McKenzie with choreography after Jean Coralli, Jules Perrot, and Marius Petipa, Giselle is set to music by Adolphe Adam, orchestrated by John Lanchbery, with scenery by Gianni Quaranta, costumes by Anna Anni, and lighting by Jennifer Tipton.',
-      image: 'https://via.placeholder.com/800x400.png?text=ABT+Giselle',
+      image: 'https://via.placeholder.com/800x400.png?text=Giselle',
       videoUrl: 'https://www.youtube.com/embed/eSx_kqe6ox0'
     },
     {
@@ -301,7 +373,7 @@ const getMockPerformances = () => {
       startDate: `${year}-06-28`,
       endDate: `${year}-07-05`,
       description: 'American Ballet Theatre\'s New York Premiere of Christopher Wheeldon\'s The Winter\'s Tale will open at the Royal Opera House, Covent Garden, London. The award-winning production will receive its Company Premiere by American Ballet Theatre on April 3, 2025, at Segerstrom Center for the Arts in Costa Mesa, California. At the Metropolitan Opera House, the ballet will be given seven performances through Saturday, July 5, featuring music by Joby Talbot, set and costume design by Bob Crowley, lighting design by Natasha Katz, video design by Daniel Brodie, and silk design by Basil Twist.',
-      image: 'https://via.placeholder.com/800x400.png?text=ABT+The+Winters+Tale',
+      image: 'https://via.placeholder.com/800x400.png?text=The+Winters+Tale',
       videoUrl: ''
     },
     {
@@ -309,7 +381,7 @@ const getMockPerformances = () => {
       startDate: `${year}-07-08`,
       endDate: `${year}-07-14`,
       description: 'Sylvia will return to American Ballet Theatre in the fourth week of the Summer season, beginning on Tuesday, July 8 at 7:30 P.M. and running for seven performances. The opening night cast of Sylvia will be led by Catherine Hurlin as Sylvia and Isaac Hernández as Aminta, both in their debuts. With choreography by Frederick Ashton, music by Léo Delibes, and staging by Christopher Newton, Sylvia is set in mythical Greece and tells the story of the chaste nymph Sylvia who is united by the deity Eros with the lovelorn shepherd Aminta. Sylvia features scenery and costumes by Christopher and Robin Ironside, with additional designs by Peter Farmer and lighting by Mark Jonathan.',
-      image: 'https://via.placeholder.com/800x400.png?text=ABT+Sylvia',
+      image: 'https://via.placeholder.com/800x400.png?text=Sylvia',
       videoUrl: ''
     },
     {
@@ -317,7 +389,7 @@ const getMockPerformances = () => {
       startDate: `${year}-07-14`,
       endDate: `${year}-07-19`,
       description: 'Swan Lake will return for eight performance in the fifth week of ABT\'s Summer season, led by Catherine Hurlin as Odette/Odile and James Whiteside as Prince Siegfried on Monday, July 14 at 7:30 P.M. Set to music by Peter Ilyitch Tchaikovsky, Swan Lake is choreographed by Kevin McKenzie after Marius Petipa and Lev Ivanov and features scenery and costumes by Zack Brown and lighting by Duane Schuler.',
-      image: 'https://via.placeholder.com/800x400.png?text=ABT+Swan+Lake',
+      image: 'https://via.placeholder.com/800x400.png?text=Swan+Lake',
       videoUrl: 'https://www.youtube.com/embed/9rJoB7y6Ncs'
     },
     {

@@ -1,0 +1,15 @@
+# Ignore world-ballets-latest directory
+world-ballets-latest/
+
+# Ignore node_modules
+node_modules/
+
+# Ignore environment files
+.env
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore log files
+*.log

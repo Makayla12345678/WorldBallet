@@ -27,7 +27,7 @@ const scrapeCompanyInfo = async () => {
     description = description.trim() || 'Founded in 1951, the National Ballet of Canada is one of the premier dance companies in North America. Based in Toronto, the company performs a traditional and contemporary repertoire of the highest caliber.';
     
     // Get logo URL
-    let logoUrl = $('.site-logo img').attr('src') || 'https://via.placeholder.com/150x150.png?text=NBC+Logo';
+    let logoUrl = $('.site-logo img').attr('src') || 'https://via.placeholder.com/150x150.png?text=NBOC+Logo';
     
     // Ensure logo URL is absolute
     if (logoUrl && !logoUrl.startsWith('http')) {
@@ -37,7 +37,7 @@ const scrapeCompanyInfo = async () => {
     // Create company info object
     const companyInfo = {
       name: 'National Ballet of Canada',
-      shortName: 'NBC',
+      shortName: 'NBOC',
       description,
       logo: logoUrl,
       website: 'https://national.ballet.ca'
@@ -51,9 +51,9 @@ const scrapeCompanyInfo = async () => {
     // Return default info if scraping fails
     return {
       name: 'National Ballet of Canada',
-      shortName: 'NBC',
+      shortName: 'NBOC',
       description: 'Founded in 1951, the National Ballet of Canada is one of the premier dance companies in North America. Based in Toronto, the company performs a traditional and contemporary repertoire of the highest caliber.',
-      logo: 'https://via.placeholder.com/150x150.png?text=NBC+Logo',
+      logo: 'https://via.placeholder.com/150x150.png?text=NBOC+Logo',
       website: 'https://national.ballet.ca'
     };
   }
